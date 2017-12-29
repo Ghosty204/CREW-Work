@@ -165,7 +165,11 @@ if SERVER then
 		
 		if !string.StartWith(text, "/raid") then return "" end
 		
-		ply:ConCommand("raid".. string.sub(text, 6))
+		if ply:IsRaiding() then
+			ply:ConCommand("raid stop")
+		else
+			ply:ConCommand("raid".. string.sub(text, 6))
+		end
 		return ""
 	end
 	hook.Add("PlayerSay", "RaidModeChat", RaidMode.ChatCommand)
