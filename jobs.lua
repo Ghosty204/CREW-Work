@@ -24,6 +24,7 @@ body = "Kevlar Vest", (Will apply a bodyarmor on spawn)
 util = "Green Backpack", (Will apply a backpack on spawn)
 IsVIP = true, (Makes this Job VIP-Only)
 IsGVIP = true, (Makes this job GVIP-Only)
+Raid = true, (Makes a job able to raid or not)
 --]]
 // #NoSimplerr#
 
