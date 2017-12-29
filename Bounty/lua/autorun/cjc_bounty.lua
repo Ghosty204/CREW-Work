@@ -4,6 +4,7 @@ if SERVER then
 	util.AddNetworkString("Bounty_Gained")
 	util.AddNetworkString("Bounty_Lost")
 	util.AddNetworkString("Bounty_Claimed")
+	util.AddNetworkString("Bounty_GotMoney")
 	local meta = FindMetaTable( 'player' )
 	
 	function meta:GetBounty()
@@ -60,6 +61,9 @@ if SERVER then
 			amt = math.Round(bountykeeper:GetBounty()*0.4)
 		end
 		bountyhunter:addMoney(amt)
+		net.Start("Bounty_GotMoney")
+			net.WriteString(tostring(atm))
+		net.Send(bountyhunter)
 		net.Start("Bounty_Claimed")
 			net.WriteEntity(bountyhunter)
 			net.WriteEntity(bountykeeper)
@@ -94,5 +98,9 @@ if CLIENT then
 	net.Receive("Bounty_Lost", function()
 		local ply = net.ReadEntity()
 		chat.AddText(Color(255,255,255), "[", Color(255,0,0), "ALERT", Color(255,255,255), "] "..ply:Nick().." lost his bounty.")
+	end)
+	
+	net.Receive("Bounty_GotMoney", function()
+		notification.AddLegacy("You got "..net.ReadString().."CJ$ for claiming that bounty.", NOTIFY_GENERIC, 4)
 	end)
 end
