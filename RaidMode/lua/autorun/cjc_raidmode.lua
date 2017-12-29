@@ -35,9 +35,74 @@ if SERVER then
 			net.Start("RaidMode_Stop")
 				net.WriteString(stopReason)
 				net.WriteEntity(ply)
-			net.BroadCast()
+			net.Broadcast()
 		end
 	end
+	
+	function RaidMode.StartRaid( ply, party )
+		local party = party or "Alone"
+		ply:SetNWBool("Raiding", true)
+		ply.RaidTime = CurTime() + 1200
+		ply:wanted(nil, "Raiding", 1500)
+		
+		if party == "Alone" then
+			net.Start("RaidMode_Start")
+				net.WriteString(party)
+				net.WriteEntity(ply)
+			net.Broadcast()
+		end
+	end
+	
+	function RaidMode.StartPartyRaid( ply )
+		local RaidTeamNicks = {}
+		local RaidModeGrammar = {}
+		for k,tgt in pairs(ply:GetCurrentParty().Players) do
+			if not RaidMode.IsRaidJob(tgt) then return end
+
+			table.insert(RaidTeamNicks, tgt:Nick())
+
+			RaidMode.StartRaid(tgt, "Party")
+		end
+		
+		// Don't judge me on this, I was stoned
+		for k,nick in pairs(RaidTeamNicks) do
+			if nick == table.GetLastValue(RaidTeamNicks) then
+				table.insert(RaidModeGrammar, "and "..nick)
+			elseif nick == table.GetFirstValue(RaidTeamNicks) then
+				table.insert(RaidModeGrammar, nick)
+			else
+				table.insert(RaidModeGrammar, ", "..nick)
+			end
+		end
+
+		net.Start("RaidMode_Start")
+			net.WriteString("Party")
+			net.WriteEntity(ply)
+			net.WriteTable(RaidModeGrammar)
+		net.Broadcast()
+	end
+	
+	function RaidMode.Death( ply )
+		if ply:IsRaiding() then
+			RaidMode.StopRaid( ply, false, "Died" )
+		end
+	end
+	hook.Add("PlayerDeath", "RaidModeDeath", RaidMode.Death)
+	
+	function RaidMode.ChangedTeam( ply )
+		if ply:IsRaiding() then
+			RaidMode.StopRaid(ply, false, "ChangedTeam")
+		end
+	end
+	hook.Add("OnPlayerChangedTeam", "RaidModePlayerChange", RaidMode.ChangedTeam)
+	
+	function RaidMode.Disconnected( ply )
+		if ply:IsRaiding() then
+			RaidMode.StopRaid(ply, false, "Disconnected")
+		end
+	end
+	hook.Add("PlayerDisconnect", "RaidModePlayerDisconnect", RaidMode.Disconnected)
+	
 end
 
 if CLIENT then
