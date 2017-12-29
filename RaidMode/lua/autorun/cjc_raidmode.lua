@@ -14,6 +14,29 @@ if SERVER then
 	end
 	
 	RaidMode = RaidMode or {}
+	
+	function RaidMode.Think()
+		for k,ply in pairs(player.GetAll()) do
+			if not (ply.NextRaid == nil) && CurTime() >= ply.NextRaid then
+				ply.NextRaid = nil
+				ply.CanRaid = true
+			end
+
+			if not (ply.RaidTime == nil) && CurTime() >= ply.RaidTime then
+				RaidMode.StopRaid( ply, true, "Stop" )
+			end
+		end
+	end
+	hook.Add("Think", "RaidModeThink", RaidMode.Think)
+	
+	function RaidMode.Spawn( ply )
+		ply:SetNWBool("Raiding", false)
+		if ply.NextRaid == nil then
+			ply.CanRaid = true
+		end
+	end
+	hook.Add("PlayerSpawn", "RaidModeSpawn", RaidMode.Spawn)
+	
 	function RaidMode.StartRaid( ply ) 
 		ply:SetNWBool("Raiding", true)
 		ply.RaidTime = CurTime() + 1200
@@ -103,6 +126,49 @@ if SERVER then
 	end
 	hook.Add("PlayerDisconnect", "RaidModePlayerDisconnect", RaidMode.Disconnected)
 	
+	function RaidMode.FailRaid(ply, reason)
+		net.Start("RaidMode_Fail")
+			net.WriteString(reason)
+			if reason == "NoRaid"
+				net.WriteString(tostring(math.Round(ply.NextRaid - CurTime())))
+			end
+		net.Send(ply)
+	end
+	
+	// Consolecommands: raid start/stop
+	//					raid start party/alone
+	function RaidMode.ConsoleCommand( ply, cmd, args )
+		if !ply:IsValid() then return end
+		for k,v in pairs(args) do
+			args[k] = string.lower(v)
+		end
+		if args[0] == "start" then
+			if ply:IsRaiding() then return end
+			if !ply:IsRaidJob() then return end
+			if !ply.CanRaid then RaidMode.FailRaid(ply, "NoRaid") return end
+			
+			if args[1] == "party" then
+				if !ply:HasParty() then RaidMode.FailRaid(ply, "NoParty") return end
+				if !ply:IsPartyMaster() then RaidMode.FailRaid(ply, "NotMaster") return end
+				RaidMode.StartPartyRaid( ply )
+			end
+		elseif args[0] == "stop" then
+			if !ply:IsRaiding() then return end
+			RaidMode.StopRaid( ply, true, "Stop" )
+		end
+	end
+	concommand.Add("raid", RaidMode.ConsoleCommand)
+	
+	function RaidMode.ChatCommand( ply, text, teamchat )
+		if teamchat then return "" end
+		local text = string.lower(text)
+		
+		if !string.StartWith(text, "/raid") then return "" end
+		
+		ply:ConCommand("raid".. string.sub(text, 6))
+		return ""
+	end
+	hook.Add("PlayerSay", "RaidModeChat", RaidMode.ChatCommand)
 end
 
 if CLIENT then
