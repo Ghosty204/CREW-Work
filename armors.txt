@@ -1,0 +1,34 @@
+--vests
+	["Ballistic Nylon"]="ent_jack_bodyarmor_vest_bn",
+	["Stab Vest"]="ent_jack_bodyarmor_vest_sv",
+	["Soft Kevlar"]="ent_jack_bodyarmor_vest_sk",
+	["Kevlar SAPI"]="ent_jack_bodyarmor_vest_ks",
+	["Impact Vest"]="ent_jack_bodyarmor_vest_im",
+	["Heavy Vest"]="ent_jack_bodyarmor_vest_hv",
+	["Modular Vest"]="ent_jack_bodyarmor_vest_md",
+--helmets
+	["Steel"]="ent_jack_bodyarmor_helm_st",
+	["Kevlar Resin"]="ent_jack_bodyarmor_helm_kr",
+	["Polyethylene"]="ent_jack_bodyarmor_helm_pe",
+	["Riot"]="ent_jack_bodyarmor_helm_ri",
+	["Impact"]="ent_jack_bodyarmor_helm_im",
+	["Modular Helmet"]="ent_jack_bodyarmor_helm_mdh",
+	["Heavy Helmet"]="ent_jack_bodyarmor_helm_hvh",
+	["Gas Helmet"]="ent_jack_bodyarmor_helm_gas",
+	["NVG Helmet"]="ent_jack_bodyarmor_helm_nvg",
+	["Standard Helmet"]="ent_jack_bodyarmor_helm_sih",
+--masks
+	["Balaclava"]="ent_jack_bodyarmor_mask_bala",
+	["Gas Mask"]="ent_jack_bodyarmor_mask_gas",
+	["Visor Mask"]="ent_jack_bodyarmor_mask_visor",
+	["Snork Mask"]="ent_jack_bodyarmor_mask_snork",
+	["NVG"]="ent_jack_bodyarmor_mask_nvg",
+--util
+	["Command Backpack"]="ent_jack_bodyarmor_util_com",
+	["Utility Backpack"]="ent_jack_bodyarmor_util_com2",
+	["Black Backpack"]="ent_jack_bodyarmor_util_backpack1",
+	["Green Backpack"]="ent_jack_bodyarmor_util_backpack2",
+--suits
+	["Hazardous Material"]="ent_jack_suit_hazmat",
+	["Fire-Faraday"]="ent_jack_suit_fire",
+	["EOD"]="ent_jack_suit_eod"
