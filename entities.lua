@@ -93,27 +93,6 @@ AddEntity("Hemostats", {
 	allowed = {TEAM_MEDIC, TEAM_MILITARYMEDIC, TEAM_GANGMEDIC}
 })
 
-
-AddEntity("Blackhawk", {
-	ent = "wac_hc_uh60lau61ca",
-	model = "models/wac/uh60_lau61ca.mdl",
-	price = 35000,
-	category = "Helicopters",
-	max = 1,
-	cmd = "/hawk",
-	allowed = TEAM_MILITARYPILOT
-})
-
-AddEntity("Apache", {
-	ent = "wac_hc_ah64d_longbow",
-	model = "models/sentry/apache.mdl",
-	price = 50000,
-	category = "Helicopters",
-	max = 1,
-	cmd = "/apache",
-	allowed = TEAM_MILITARYPILOT
-})
-
 AddEntity("7.62x39mm Turret (Machine-Gun)", {
 	ent = "turret_bullets",
 	model = "models/reach/weapons/turret/hmg_fix.mdl",
