@@ -67,12 +67,132 @@ Define which team joining players spawn into and what team you change to if demo
 GAMEMODE.DefaultTeam = TEAM_CITIZEN
 
 
+//Citizen
+TEAM_CITIZEN = DarkRP.createJob("Citizen", {
+color = Color(0, 255, 0),
+model = "models/player/Group01/Male_01.mdl", "models/player/Group01/Male_02.mdl", "models/player/Group01/Male_03.mdl", "models/player/Group01/Female_01.mdl", "models/player/Group01/Female_02.mdl", "models/player/Group01/Female_03.mdl",
+description = [[You are a citizen, you are unemployed and live in the town.]]
+weapons = {},
+command = "citizen",
+max = 99,
+salary = 15,
+category = "Normal"
+admin = false,
+vote = false
+hasLicence = false,
+mayorCanSetSalary = false,
+candemote = true,
+Citizen = true
+})
+
+
+
+
 --[[---------------------------------------------------------------------------
 Define which teams belong to civil protection
 Civil protection can set warrants, make people wanted and do some other police related things
 ---------------------------------------------------------------------------]]
 GAMEMODE.CivilProtection = {
 }
+
+
+//Govenor
+TEAM_GOVENOR = DarkRP.createJob("Govenor", {
+color = Color(255, 000, 000, 000),
+model = "models/player/breen.mdl",
+description = [[You are the govenor of the town. You control the police and citizens.]],
+weapons = {},
+command = "govenor",
+max = 1,
+salary = 50,
+category = "Law",
+admin = 0,
+vote = true
+hasLicence = true,
+mayorCanSetSalary = false,
+candemote = true,
+Govenor = true
+})
+
+//Police
+TEAM_POLICE = DarkRP.createJob("Police", {
+color = Color(0,0,153),
+model = "models/player/police.mdl", "models/player/policefem.mdl",
+description = [[You are the main law enforcement of the city, protect the people from criminals and zombies]]
+weapons = "khr_p226",
+command = "police",
+max = 3,
+salary = 20,
+category = "Law"
+admin = false,
+vote = false
+hasLicence = true,
+mayorCanSetSalary = true,
+candemote = false,
+Police = true
+})
+
+//Police Cheif
+TEAM_POLICE CHEIF = DarkRP.createJob("Police Cheif", {
+color = Color(0,0,255),
+model = "models/player/police.mdl", "models/player/policefem.mdl",
+description = [[You command the police and order them to do things.You are slightly better equipped than regular police.]]
+weapons = "khr_p226", "khr_toz194"
+command = "police cheif",
+max = 1,
+salary = 30,
+category = "Law"
+admin = false,
+vote = true
+hasLicence = true,
+mayorCanSetSalary = true,
+candemote = true,
+trusted = true
+Police Cheif = true
+})
+
+
+//Marine Soldier
+TEAM_MARINE SOLDIER = DarkRP.createJob("Marine Soldier", {
+color = Color(66,66,66),
+model = "models/jessev92/soldier_bms/marine1_poser.mdl",
+description = [[ You are a Marine Soldier, you protect the city and have more firepower than regualar police.]]
+weapons = {"khr_p90", "khr_m92fs"},
+command = "marine soldier",
+max = 3,
+salary = 25,
+category = "Normal"
+admin = false,
+vote = false
+hasLicence = true,
+mayorCanSetSalary = true,
+candemote = false,
+trusted = true
+Marine Soldier = true
+})
+
+//Marine Sniper
+TEAM_MARINE SNIPER = DarkRP.createJob("Marine Sniper", {
+color = Color(66,66,66),
+model = "models/player/PMC_5/PMC__03.mdl",
+description = [[You are a Marine Soldier,you snipe your enimies from afar and scout.]]
+weapons = {"khr_t5000", "khr_ots33"},
+command = "marine sniper",
+max = 2,
+salary = 25,
+category = "Normal"
+admin = false,
+vote = false
+hasLicence = true,
+mayorCanSetSalary = true,
+candemote = false,
+trusted = true
+Marine Sniper = true
+})
+
+
+
+
 
 
 --[[---------------------------------------------------------------------------
